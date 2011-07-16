@@ -35,28 +35,155 @@ class KloutTest extends PHPUnit_Framework_TestCase
   {
     $response = $this->Klout->getUserScore($this->User);
 
-    // test a simple connect
-    $this->assertTrue($response['status'] === 200);
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), 1);
   }
 
   /**
-	 * Tests Connect
+	 * Tests Klout
 	 *
-	 * Tests connection by sending through a call with an invalid key
+	 * Tests getting the score for multiple users
 	 *
 	 * @test
 	 */
-  public function testFailedConnect()
+  public function testGetUsersScore()
   {
-    $apikey = Klout::$apikey;
-    Klout::$apikey .= 'x';
-    $this->Customer->all();
-    $connect = $this->Customer->callInfo;
-    
-    // test a simple connect
-    $this->assertTrue($connect['http_code'] === 401);
-    
-    Klout::$apikey = $apikey;
+    $response = $this->Klout->getUsersScore($this->Users);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), count($this->Users));
+  }
+
+  /**
+	 * Tests Klout
+	 *
+	 * Tests getting the information for a single user
+	 *
+	 * @test
+	 */
+  public function testGetUser()
+  {
+    $response = $this->Klout->getUser($this->User);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), 1);
+    $this->assertSame($response->users[0]->twitter_screen_name, $this->User);
+  }
+
+  /**
+	 * Tests Klout
+	 *
+	 * Tests getting the information for multiple users
+	 *
+	 * @test
+	 */
+  public function testGetUsers()
+  {
+    $response = $this->Klout->getUsers($this->Users);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), count($this->Users));
+    $this->assertSame($response->users[0]->twitter_screen_name, $this->Users[0]);
+  }
+
+  /**
+	 * Tests getting the Topics of expertise for a single user
+	 *
+	 * @test
+	 */
+  public function testGetUserTopics()
+  {
+    $response = $this->Klout->getUserTopics($this->User);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), 1);
+    $this->assertSame($response->users[0]->twitter_screen_name, $this->User);
+    $this->assertObjectHasAttribute('topics', $response->users[0]);
+  }
+
+  /**
+	 * Tests getting the Topics of expertise for multiple users
+	 *
+	 * @test
+	 */
+  public function testGetUsersTopics()
+  {
+    $response = $this->Klout->getUsersTopics($this->Users);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), count($this->Users));
+    $this->assertSame($response->users[0]->twitter_screen_name, $this->Users[0]);
+    $this->assertObjectHasAttribute('topics', $response->users[0]);
+  }
+
+  /**
+	 * Tests getting the users that influence the passed user
+	 *
+	 * @test
+	 */
+  public function testGetInfluencedBy()
+  {
+    $response = $this->Klout->getInfluencedBy($this->User);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), 1);
+    $this->assertSame($response->users[0]->twitter_screen_name, $this->User);
+    $this->assertObjectHasAttribute('influencers', $response->users[0]);
+  }
+
+  /**
+	 * Tests getting the users that influence the passed user
+	 *
+	 * @test
+	 */
+  public function testGetMultipleInfluencedBy()
+  {
+    $response = $this->Klout->getMultipleInfluencedBy($this->Users);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), count($this->Users));
+    $this->assertSame($response->users[0]->twitter_screen_name, $this->Users[0]);
+    $this->assertObjectHasAttribute('influencers', $response->users[0]);
+  }
+
+  /**
+	 * Tests getting the users that influence the passed user
+	 *
+	 * @test
+	 */
+  public function testGetInfluencerOf()
+  {
+    $response = $this->Klout->getInfluencerOf($this->User);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), 1);
+    $this->assertSame($response->users[0]->twitter_screen_name, $this->User);
+    $this->assertObjectHasAttribute('influencees', $response->users[0]);
+  }
+
+  /**
+	 * Tests getting the users that influence the passed user
+	 *
+	 * @test
+	 */
+  public function testGetMultipleInfluencerOf()
+  {
+    $response = $this->Klout->getMultipleInfluencerOf($this->Users);
+
+    $this->assertTrue($response->status === 200);
+    $this->assertObjectHasAttribute('users', $response);
+    $this->assertEquals(count($response->users), count($this->Users));
+    $this->assertSame($response->users[0]->twitter_screen_name, $this->Users[0]);
+    $this->assertObjectHasAttribute('influencees', $response->users[0]);
   }
 }
 ?>
