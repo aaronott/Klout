@@ -1,0 +1,21 @@
+The Klout Score is the measurement of your overall online influence.
+
+More about Klout can be found at http://corp.klout.com/kscore
+
+You will need an API key to use this, and the API key can be found at
+http://developer.klout.com/
+
+
+Usage:
+
+Get the score for a single user
+$klout = new Klout;
+$klout->getUserScore('aaronott');
+
+Get the scores for multiple users (per Klout, you can only use upto 5 users
+at a time.
+
+$users = ('user1','user2','user3');
+$klout = new Klout;
+$klout->getUsersScore($users);
+

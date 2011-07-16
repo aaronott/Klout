@@ -56,7 +56,7 @@ class Klout {
     }
 
     if ($this->callInfo['http_code'] != 200) {
-      throw new Klout_Exception('HTTP_CODE != 200: ' . $this->callInfo['http_code']);
+      throw new Klout_Response_Exception('HTTP_CODE != 200: ' . $this->callInfo['http_code']);
     }
 
     curl_close($ch);
@@ -137,6 +137,7 @@ class Klout {
 }
 
 class Klout_Exception extends Exception {}
+class Klout_Response_Exception extends Exception {}
 
 $klout = new Klout;
 
