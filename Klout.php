@@ -13,9 +13,9 @@ class Klout {
   /**
    * API-Key required to make the calls
    *
-   * @access private
+   * @access protected
    */
-  private $APIKEY = '';
+  protected $APIKEY = '';
 
   /**
    * URI to call for service
