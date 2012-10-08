@@ -134,7 +134,7 @@ class KloutTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($response->status === 200);
     $this->assertObjectHasAttribute('users', $response);
     $this->assertEquals(count($response->users), 1);
-    $this->assertSame($response->users[0]->twitter_screen_name, $this->User);
+    $this->assertSame($response->users[0]->twitter_screen_name->screen_name, $this->User);
     $this->assertObjectHasAttribute('influencers', $response->users[0]);
   }
 
@@ -150,7 +150,7 @@ class KloutTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($response->status === 200);
     $this->assertObjectHasAttribute('users', $response);
     $this->assertEquals(count($response->users), count($this->Users));
-    $this->assertSame($response->users[0]->twitter_screen_name, $this->Users[0]);
+    $this->assertSame($response->users[0]->twitter_screen_name->screen_name, $this->Users[0]);
     $this->assertObjectHasAttribute('influencers', $response->users[0]);
   }
 
@@ -166,8 +166,8 @@ class KloutTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($response->status === 200);
     $this->assertObjectHasAttribute('users', $response);
     $this->assertEquals(count($response->users), 1);
-    $this->assertSame($response->users[0]->twitter_screen_name, $this->User);
-    $this->assertObjectHasAttribute('influencees', $response->users[0]);
+    $this->assertSame($response->users[0]->twitter_screen_name->screen_name, $this->User);
+    $this->assertObjectHasAttribute('influencers', $response->users[0]);
   }
 
   /**
@@ -182,8 +182,8 @@ class KloutTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($response->status === 200);
     $this->assertObjectHasAttribute('users', $response);
     $this->assertEquals(count($response->users), count($this->Users));
-    $this->assertSame($response->users[0]->twitter_screen_name, $this->Users[0]);
-    $this->assertObjectHasAttribute('influencees', $response->users[0]);
+    $this->assertSame($response->users[0]->twitter_screen_name->screen_name, $this->Users[0]);
+    $this->assertObjectHasAttribute('influencers', $response->users[0]);
   }
 }
 ?>
